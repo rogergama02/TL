@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f0f0f">
+  <title>Taskloom — Chatbots que vendem e atendem 24/7</title>
+  <meta name="description" content="Chatbots para WhatsApp, site e CRM. Captação 24/7, qualificação de leads, follow-up automático e relatórios. Planos para cada fase do seu negócio.">
+<style>
+:root{
+  --bg:#0f0f0f; --bg-2:#151515; --card:#1a1a1a;
+  --text:#e9e9e9; --muted:#bdbdbd;
+  --brand:#6c1617; --brand-2:#581213; --danger:#ff3b3b;
+  --shadow:0 10px 30px rgba(0,0,0,.3);
+  --radius:14px; --radius-lg:18px;
+  --max:1200px; --gap:clamp(.75rem,1vw,.9rem);
+  --header-pad:.9rem;
+}
+*{box-sizing:border-box}
+html{font-size:clamp(15px, 1rem + .25vw, 18px)}
+body{
+  margin:0; font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg); color:var(--text); line-height:1.55;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  scroll-behavior:smooth;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+img{max-width:100%; height:auto; display:block}
+a{color:inherit; text-decoration:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* HEADER / NAV */
+header{position:sticky; top:0; z-index:100; background:var(--card); box-shadow:var(--shadow)}
+.nav-wrap{
+  max-width:var(--max); margin:auto; padding:calc(var(--header-pad) - .2rem) var(--header-pad);
+  display:flex; align-items:center; justify-content:space-between; gap:.6rem
+}
+.brand{display:flex; align-items:center; gap:.6rem}
+.brand img{height:clamp(42px, 7vw, 70px); width:auto}
+
+.menu-toggle{
+  display:inline-flex; flex-direction:column; gap:4px; padding:.6rem; border:1px solid #2a2a2a;
+  background:#111; border-radius:12px; cursor:pointer; min-height:44px; min-width:44px; touch-action:manipulation
+}
+.menu-toggle span{width:20px;height:2px;background:#fff;display:block}
+
+nav{position:relative}
+#nav-panel{
+  position:absolute; inset-block-start:calc(100% + .6rem); inset-inline-end:var(--header-pad);
+  display:none; width:min(86vw, 380px);
+  background:#111; border:1px solid #2a2a2a; border-radius:16px; padding:.6rem;
+  box-shadow:var(--shadow)
+}
+#nav-panel[data-open="true"]{display:flex; flex-direction:column; align-items:stretch; gap:.35rem}
+
+.nav-item{
+  display:flex; align-items:center; justify-content:center; gap:.6rem;
+  padding:.75rem .9rem; border-radius:12px; min-height:44px;
+  color:var(--text); background:transparent; border:0; cursor:pointer; text-align:center
+}
+.nav-item:hover{background:#151515}
+.nav-cta{
+  background:var(--brand); font-weight:bold
+}
+.nav-cta:hover{background:var(--brand-2)}
+/* desktop inline */
+@media(min-width:900px){
+  .menu-toggle{display:none}
+  #nav-panel{
+    all:unset; display:flex; align-items:center; gap:.6rem
+  }
+  .nav-item{padding:.5rem .7rem; min-height:auto}
+  .nav-cta{padding:.65rem .9rem; border-radius:12px}
+}
+
+/* LAYOUT */
+main section{padding:clamp(2.2rem, 4vw, 4rem) 1rem; content-visibility:auto; contain-intrinsic-size:1px 500px}
+.wrap{max-width:var(--max); margin-inline:auto}
+
+/* HERO */
+#hero{background:linear-gradient(180deg,var(--bg),var(--bg-2)); border-bottom:1px solid #1f1f1f}
+.hero-grid{
+  display:grid;
+  gap:1.4rem;
+  justify-items:center;
+  text-align:center;
+  /* vertical center of the two columns */
+  align-items:center;
+}
+#hero h1{font-size:clamp(1.9rem, 2rem + 1.2vw, 3rem); margin:.2rem 0 .6rem}
+#hero .lead{color:var(--muted); font-size:clamp(1rem, .95rem + .3vw, 1.15rem); max-width:70ch; margin-bottom:1.1rem}
+.badge{
+  display:inline-flex; align-items:center; gap:.5rem; padding:.35rem .6rem;
+  border:1px solid rgba(255,255,255,.08); background:rgba(108,22,23,.12);
+  color:#ffb3b3; border-radius:999px; font-size:.95rem; margin-bottom:.8rem
+}
+.cta-group{display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center}
+.cta{
+  background:var(--brand); color:#fff; border:none; font-weight:bold;
+  padding:.75rem 1rem; border-radius:12px; cursor:pointer; min-height:44px;
+  transition:transform .2s,background .2s; touch-action:manipulation
+}
+.cta:hover{background:var(--brand-2); transform:translateY(-1px)}
+.cta-sec{
+  background:#111; border:1px solid #2a2a2a; color:#fff;
+  padding:.75rem 1rem; border-radius:12px; font-weight:bold; cursor:pointer; min-height:44px
+}
+.cta-sec:hover{background:#151515}
+
+.hero-card{
+  width:100%; max-width:680px;
+  background:var(--card); padding:1rem; border-radius:var(--radius-lg);
+  box-shadow:var(--shadow); border:1px solid #232323;
+  /* center internal content horizontally and vertically */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-points{
+  display:grid;
+  gap:.6rem;
+  justify-items:center;
+  align-items:center;
+  /* keep single-column stacking so each .chip stays below the other */
+  grid-template-columns:1fr;
+  width:100%;
+}
+@media(min-width:992px){
+  .hero-grid{
+    grid-template-columns:1.2fr .8fr;
+    text-align:left;
+    justify-items:stretch;
+    align-items:center; /* keeps right box centered relative to left column */
+  }
+  /* keep the hero-points stacked but centered inside the hero-card */
+  .hero-points{
+    grid-template-columns:1fr;
+    justify-items:center;
+    gap:.6rem;
+    width:100%;
+    max-width:520px;
+  }
+}
+
+/* CHIP */
+.chip{
+  width:100%;
+  max-width:520px;
+  display:flex; align-items:center; justify-content:center; gap:.5rem;
+  background:#111; border:1px solid #242424; padding:.6rem .7rem; border-radius:12px;
+  font-size:1rem; color:var(--muted); text-align:center
+}
+
+/* TRUST */
+.trust{background:#111; border-block:1px solid #1e1e1e; padding:1rem}
+.trust .wrap{display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center; color:var(--muted); font-size:.98rem}
+.trust .pill{border:1px dashed #2a2a2a; padding:.5rem .7rem; border-radius:999px; background:#0e0e0e}
+
+/* BENEFÍCIOS */
+section h2{color:var(--brand); text-align:center; margin-bottom:1.4rem; font-size:clamp(1.4rem, 1.2rem + .9vw, 2rem)}
+.grid-3{display:grid; gap:var(--gap); justify-items:center}
+.card{width:100%; max-width:360px; background:var(--card); border:1px solid #232323; border-radius:var(--radius); padding:1rem; box-shadow:var(--shadow)}
+.card h3{margin:.2rem 0 .4rem; text-align:center; font-size:clamp(1.05rem, 1rem + .4vw, 1.2rem)}
+.card p{margin:0; color:var(--muted); text-align:center}
+@media(min-width:760px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
+@media(min-width:1024px){ .grid-3{grid-template-columns:repeat(3,1fr)} }
+
+/* ABOUT */
+#about .wrap{max-width:900px; text-align:center}
+
+/* PLANOS */
+.plans {
+  display: grid;
+  gap: 2rem;
+  justify-items: center;
+}
+
+.plan {
+  width: 100%;
+  max-width: 340px;
+  background: var(--card);
+  padding: 2rem 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid #2a2a2a;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1.2rem;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.plan:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(0,0,0,.45);
+}
+
+.plan h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.sub {
+  color: var(--muted);
+  font-size: .95rem;
+  margin-top: -.5rem;
+}
+
+.plan ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  font-size: .95rem;
+  line-height: 1.5;
+}
+
+.plan li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin: .5rem 0;
+}
+
+.plan li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--brand);
+  font-weight: bold;
+}
+
+.plan .cta {
+  width: 100%;
+  margin-top: auto;
+  padding: .8rem 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: .6rem;
+}
+
+.plan.rec {
+  border: 2px solid var(--brand);
+  box-shadow: 0 14px 40px rgba(108,22,23,.25);
+  position: relative;
+}
+
+.plan.rec::before {
+  content: "Mais Popular";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--brand);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+  padding: .2rem .8rem;
+  border-radius: 999px;
+}
+
+@media(min-width:760px){
+  .plans {grid-template-columns:repeat(2,1fr);}
+}
+
+@media(min-width:1100px){
+  .plans {grid-template-columns:repeat(3,1fr);}
+}
+
+/* FAQ */
+.faq{max-width:900px; margin:auto}
+details{background:#111; border:1px solid #232323; border-radius:12px; padding:.8rem 1rem; margin-bottom:.7rem}
+summary{cursor:pointer; font-weight:bold}
+details p{color:var(--muted); margin:.6rem 0 0}
+
+/* FORM */
+#contact .wrap {
+  display: grid;
+  justify-items: center;
+  width: 100%;
+}
+
+form {
+  width: 100%;
+  max-width: 1200px;   /* mais largo no desktop */
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: var(--card);
+  padding: 2rem 2.5rem;   /* mais respiro */
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid #232323;
+}
+
+/* inputs */
+label {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+input,
+textarea {
+  padding: 1rem;
+  border: 1px solid var(--brand-2);
+  border-radius: var(--radius);
+  background: #111;
+  color: var(--text);
+  font-size: 1rem;
+  transition: border .2s, box-shadow .2s;
+}
+
+input:focus,
+textarea:focus {
+  outline: 0;
+  border: 1px solid var(--brand);
+  box-shadow: 0 0 6px var(--brand);
+}
+
+/* botão */
+button.submit {
+  padding: 1rem;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--brand);
+  color: #fff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background .2s, transform .2s;
+  min-height: 48px;
+  touch-action: manipulation;
+}
+
+button.submit:hover {
+  background: var(--brand-2);
+  transform: translateY(-2px);
+}
+
+/* responsivo */
+@media(min-width: 992px) {
+  form {
+    padding: 3rem 4rem;
+    gap: 1.5rem;
+  }
+}
+
+/* BOT IMAGEM */
+#bot-ghost{
+  position:fixed; bottom:calc(16px + env(safe-area-inset-bottom)); right:calc(16px + env(safe-area-inset-right));
+  width:120px; height:120px; z-index:90; pointer-events:none; opacity:0;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,.45)); animation:peek 12s ease-in-out infinite
+}
+#bot-ghost .veil{
+  position:absolute; inset:0; 
+   border-radius:18px; backdrop-filter:blur(2px)
+}
+#bot-ghost img{position:absolute; inset:6px; width:calc(100% - 12px); height:calc(100% - 12px); object-fit:contain; opacity:.92}
+@keyframes peek{
+  0%,12%{transform:translateX(0%); opacity:0}
+  20%,48%{transform:translateX(0); opacity:1}
+  58%,100%{transform:translateX(120%); opacity:0}
+}
+@media(max-width:480px){ #bot-ghost{width:96px; height:96px} }
+
+/* ACESSIBILIDADE */
+@media(prefers-reduced-motion: reduce){
+  *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important}
+  body{scroll-behavior:auto}
+  #bot-ghost{display:none}
+}
+:focus-visible{outline:2px solid #9a2a2b; outline-offset:2px; border-radius:10px}
+
+@media(max-width:768px){
+  .brand img {display:none}
+}
+
+@media(min-width:992px){
+  #hero {padding-bottom:2rem}
+}
+</style>
+
+</head>
+<body>
+  <a href="#hero" class="sr-only">Ir para conteúdo</a>
+
+  <header>
+    <div class="nav-wrap">
+      <div class="brand">
+        <img src="ChatGPT_Image_25_de_ago._de_2025__14_59_09-removebg-preview.png" alt="Taskloom Logo" width="256" height="80" decoding="async">
+      </div>
+
+      <button class="menu-toggle" id="menu-toggle" aria-controls="nav-panel" aria-expanded="false" aria-label="Abrir menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav aria-label="Navegação principal">
+        <div id="nav-panel" data-open="false" role="menu" aria-hidden="true">
+          <a class="nav-item" role="menuitem" href="#hero">Início</a>
+          <a class="nav-item" role="menuitem" href="#beneficios">Benefícios</a>
+          <a class="nav-item" role="menuitem" href="#plans">Planos</a>
+          <a class="nav-item" role="menuitem" href="#faq">FAQ</a>
+          <a class="nav-item" role="menuitem" href="#contact">Contato</a>
+          <button class="nav-item nav-cta" type="button" onclick="location.hash='#contact'">Falar com especialista</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section id="hero" aria-labelledby="hero-title">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="badge">🤖 Chatbots para WhatsApp, Site e CRM</span>
+          <h1 id="hero-title">Atenda, qualifique e converta no automático</h1>
+          <p class="lead">Fluxos pensados para gerar oportunidades reais. Respostas sob medida, captura de dados, follow-up e relatórios claros para decisões rápidas.</p>
+          <div class="cta-group">
+            <button class="cta" type="button" onclick="location.hash='#plans'">Ver planos</button>
+            <button class="cta-sec" type="button" onclick="location.hash='#contact'">Agendar demonstração</button>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-points">
+            <div class="chip">⚡ Tempo de resposta imediato</div>
+            <div class="chip">🎯 Qualificação de leads</div>
+            <div class="chip">📈 Relatórios de conversão</div>
+            <div class="chip">🔗 Integração com CRM/ERP</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust" aria-label="Integrações">
+      <div class="wrap">
+        <div class="pill">Integra com: WhatsApp Business API</div>
+        <div class="pill">Integra com: Sites e Landing Pages</div>
+        <div class="pill">Integra com: CRMs e Email Marketing</div>
+        <div class="pill">Adequado à LGPD</div>
+      </div>
+    </section>
+
+    <section id="beneficios">
+      <div class="wrap">
+        <h2>O que o mercado exige</h2>
+        <div class="grid-3">
+          <article class="card"><h3>Captação 24/7</h3><p>Não perca leads fora do horário. Toda conversa vira oportunidade registrada.</p></article>
+          <article class="card"><h3>Processo com funil</h3><p>Perguntas que qualificam e direcionam para vendas, suporte ou agendamento.</p></article>
+          <article class="card"><h3>Follow-up automático</h3><p>Lembretes e retomadas configuráveis para reduzir abandono e aumentar conversão.</p></article>
+          <article class="card"><h3>Integrações</h3><p>Envie dados para CRM, planilhas ou ERP sem fricção.</p></article>
+          <article class="card"><h3>Conteúdo inteligente</h3><p>Respostas por IA com tom e regras da sua marca.</p></article>
+          <article class="card"><h3>Métricas claras</h3><p>Dashboards de volume, taxa de resposta e motivos de perda.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap" style="text-align:center; max-width:900px">
+        <h2>Sobre a Taskloom</h2>
+        <p>Desenhamos fluxos que respeitam jornada, timing e contexto. O foco é reduzir atrito e transformar conversas em receita mensurável.</p>
+      </div>
+    </section>
+
+    <section id="plans">
+      <div class="wrap">
+        <h2>Nossos Planos</h2>
+        <div class="plans">
+          <div class="plan">
+            <h3>Pacote Básico</h3>
+            <div class="price">R$ 700 setup + <br> R$ 250/mês</div>
+            <div class="sub">Para validar canal e captar leads</div>
+            <ul>
+              <li>1 fluxo principal no n8n</li>
+              <li>WhatsApp Business API</li>
+              <li>FAQ automatizado (até 10 perguntas)</li>
+              <li>Identidade personalizada</li>
+              <li>Manutenção mensal + 2 alterações simples</li>
+            </ul>
+            <button class="cta" type="button" onclick="location.hash='#contact'">Quero este</button>
+          </div>
+
+          <div class="plan rec">
+            <h3>Pacote Intermediário</h3>
+            <div class="price">R$ 1.500 setup + <br> R$ 500/mês</div>
+            <div class="sub">Para operação em crescimento</div>
+            <ul>
+              <li>Tudo do Básico</li>
+              <li>Integração com CRM ou Email Marketing</li>
+              <li>Captação de leads automática</li>
+              <li>Até 3 jornadas (vendas, suporte, agendamento)</li>
+              <li>Relatórios detalhados + 5 alterações simples</li>
+            </ul>
+            <button class="cta" type="button" onclick="location.hash='#contact'">Quero este</button>
+          </div>
+
+          <div class="plan">
+            <h3>Pacote Avançado</h3>
+            <div class="price">R$ 3.000 setup + <br> R$ 1.000/mês</div>
+            <div class="sub">Para times com metas agressivas</div>
+            <ul>
+              <li>Tudo do Intermediário</li>
+              <li>Integração com ERP, CRM avançado e pagamentos</li>
+              <li>IA para respostas personalizadas</li>
+              <li>Dashboards em tempo real</li>
+              <li>Relatórios semanais + suporte prioritário</li>
+            </ul>
+            <button class="cta" type="button" onclick="location.hash='#contact'">Quero este</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <h2>Perguntas frequentes</h2>
+        <div class="faq">
+          <details>
+            <summary>O chatbot substitui meu time?</summary>
+            <p>Não. Ele filtra, qualifica e resolve o simples. O time foca no que exige humano.</p>
+          </details>
+          <details>
+            <summary>Posso usar meu número do WhatsApp?</summary>
+            <p>Sim, via WhatsApp Business API conforme regras da Meta.</p>
+          </details>
+          <details>
+            <summary>Como vejo resultados?</summary>
+            <p>Relatórios com volume, conversão por etapa e motivos de perda.</p>
+          </details>
+          <details>
+            <summary>E a LGPD?</summary>
+            <p>Fluxos e integrações configurados para coleta com consentimento e finalidade.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+  <div class="wrap">
+    <h2 style="text-align:center">Fale Conosco</h2>
+    <div style="display:grid; justify-items:center">
+      <form id="contact-form" novalidate>
+        <label for="nome">Nome</label>
+        <input id="nome" name="nome" type="text" placeholder="Seu nome" autocomplete="name" required>
+        
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" placeholder="Seu e-mail" autocomplete="email" required>
+        
+        <label for="msg">Mensagem</label>
+        <textarea id="msg" name="mensagem" rows="5" placeholder="Sua mensagem"></textarea>
+        
+        <button type="submit" class="submit">Enviar</button>
+      </form>
+      <div style="text-align:center;margin-top:1rem">
+        <button class="cta" type="button" onclick="location.hash='#plans'">Ver planos novamente</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <div id="bot-ghost" aria-hidden="true">
+    <div class="veil"></div>
+    <img src="3d-rendem-de-um-robo-removebg-preview.png" alt="" loading="lazy" decoding="async" width="256" height="256">
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  // ================== MENU & BOT ==================
+  const toggle = document.getElementById('menu-toggle');
+  const panel  = document.getElementById('nav-panel');
+
+  const closePanel = () => {
+    panel.setAttribute('data-open','false');
+    panel.setAttribute('aria-hidden','true');
+    toggle.setAttribute('aria-expanded','false');
+  };
+  const openPanel = () => {
+    panel.setAttribute('data-open','true');
+    panel.setAttribute('aria-hidden','false');
+    toggle.setAttribute('aria-expanded','true');
+  };
+
+  toggle.addEventListener('click', ()=>{
+    const open = panel.getAttribute('data-open') === 'true';
+    open ? closePanel() : openPanel();
+  });
+
+  // Fechar quando clicar em link/botão do painel
+  panel.addEventListener('click', e=>{
+    const isItem = e.target.closest('.nav-item');
+    if(isItem) closePanel();
+  });
+
+  // Fechar no escape e clique fora
+  document.addEventListener('keydown', e=>{
+    if(e.key === 'Escape') closePanel();
+  });
+  document.addEventListener('click', e=>{
+    if(!panel.contains(e.target) && !toggle.contains(e.target)) closePanel();
+  });
+
+  // Pausar animação do bot ao focar inputs
+  const bot = document.getElementById('bot-ghost');
+  document.querySelectorAll('input, textarea').forEach(el=>{
+    el.addEventListener('focus', ()=>{
+      bot.style.animationPlayState='paused';
+      bot.style.opacity='0';
+    });
+    el.addEventListener('blur',  ()=>{
+      bot.style.animationPlayState='running';
+      bot.style.opacity='';
+    });
+  });
+
+  // ================== EMAILJS ==================
+  (function() {
+    emailjs.init("XKRYagz5UR3JX4doE"); // public_key
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    emailjs.send("service_fooyp7f", "template_yaabdli", {
+      nome: document.getElementById("nome").value,
+      email: document.getElementById("email").value,
+      mensagem: document.getElementById("msg").value
+    })
+    .then(function(response) {
+      alert("✅ Mensagem enviada com sucesso! Retornaremos em breve.");
+      console.log("SUCCESS!", response.status, response.text);
+      document.getElementById("contact-form").reset(); // limpa o form
+    }, function(error) {
+      alert("❌ Ocorreu um erro ao enviar. Tente novamente.");
+      console.log("FAILED...", error);
+    });
+  });
+</script>
+
+</body>
+</html>
